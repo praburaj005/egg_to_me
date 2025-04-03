@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Products</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: orange;
+            padding: 7px 0; /* Reduced padding to bring title closer to the table */
+            font-size: 2.5em;
+            margin-bottom: 10px; /* Reduced margin to reduce space between title and table */
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            padding: 7px 0; /* Reduced padding to bring title closer to the table */
+            font-size: 2.5em;
+            margin-bottom: 6px; /* Reduced margin to reduce space between title and table */
+        }
+        /* Header with Home, Download, and Logout Buttons */
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% - 40px); /* Adjust width to make space for both buttons */
+        }
+
+        .header-buttons button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Links Section Styling */
+        .links {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .links a {
+            margin: 10px;
+        }
+
+        .links button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .links button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin: 20px auto 0; /* Reduced top margin to bring the table closer */
+            border-collapse: collapse; /* This removes the spacing between borders */
+            background-color: #222;
+            border: 2px solid orange; /* Orange border around the whole table */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid white; /* White line for the cell borders */
+        }
+
+        th {
+            background-color: orange;
+            color: white;
+        }
+
+        td {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Button styling */
+        button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Link styling */
+        a {
+            color: orange;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff6a00;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+        }
+
+        footer a {
+            color: orange;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #ff6a00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Home, Download, and Logout Buttons -->
+    <div class="header-buttons">
+        <a href="{% url 'print' %}">
+            <button>Recent Invoice</button>
+        </a>
+
+	{% if user.is_authenticated %}
+        	<form action="{% url 'logout' %}" method="post">
+            		{% csrf_token %}
+            		<button type="submit">Logout</button>
+        	</form>
+	{% else %}
+		
+    		<a href="{% url 'login' %}">
+        	<button>Login</button>
+    		</a>
+	{% endif %}
+    </div>
+
+    <!-- Page Title -->
+    <h1>Available Products</h1>
+
+
+    {% if user.is_authenticated %}
+	<h2> Welcome {{user.username}} </h2>
+    <!-- Links to Other Sections -->
+    <div class="links">
+        <a href="{% url 'addproduct' %}"><button>Add Product</button></a>
+        <a href="{% url 'addcustomer' %}"><button>Add Customer</button></a>
+	<a href="{% url 'createinvoiceid' %}"><button>Create Invoice</button></a>
+	<a href="{% url 'addpurchase' %}"><button>Add Purchase</button></a>
+	<a href="{% url 'customer' %}"><button>Customer Details</button></a>
+	<a href="{% url 'purchasedetails' %}"><button>Purchase Details</button></a>
+        <a href="{% url 'invoice' %}"><button>Invoice Details</button></a>  
+    </div>
+     {% else %}
+	 <h2> Please Login to access some features </h2>
+     {% endif %}
+
+    <!-- Product Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>In Stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+		
+            {% for product in products %}
+            <tr>
+                <td><a href="#" style="color: orange;">{{ product.productname }}</a></td>
+                <td>Rs.{{ product.price }} /-</td>
+                <td>{{ product.inwardqnty }}</td>
+                <td>
+                    {% if product.inwardqnty <= 5 %}
+                    <span style="color: red; font-weight: bold;">Low Stock - <a href="{% url 'updateproduct' product.productid %}" style="color: red;">Add More</a></span>
+                    {% else %}
+		    {% if user.is_authenticated %}
+                    <span style="color: orange; font-weight: bold;"><a href="{% url 'updateproduct' product.productid %}"</a>Adjust Stock</span>
+			{% else %}
+                    <span style="color: orange; font-weight: bold;"><a href="{% url 'login' %}"</a>Adjust Stock</span>	
+			{% endif %}	
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Your Billing App. All rights reserved.</p>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </footer>
+</body>
+</html>

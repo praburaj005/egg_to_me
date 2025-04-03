@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Invoice Details</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: orange;
+            padding: 30px 0;
+            font-size: 2.5em;
+        }
+
+        /* Home and Logout Button Styling */
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% - 40px); /* Adjusting width to make space for both buttons */
+        }
+
+        .header-buttons button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin: 10px auto 0;
+            border-collapse: collapse; /* This removes the spacing between borders */
+            background-color: #222;
+            border: 2px solid orange; /* Orange border around the whole table */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid white; /* White line for the cell borders */
+        }
+
+        th {
+            background-color: orange;
+            color: white;
+        }
+
+        td {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Button styling */
+        button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Link styling */
+        a {
+            color: orange;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff6a00;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+        }
+
+        footer a {
+            color: orange;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #ff6a00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Home and Logout Buttons -->
+    <div class="header-buttons">
+        <a href="{% url 'home' %}">
+            <button>Home</button>
+        </a>
+        <a href="#">
+            <button>Logout</button>
+        </a>
+    </div>
+
+    <!-- Page Title -->
+    <h1>All Customer Details</h1>
+
+    <br><br>
+
+    <!-- Customer Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Mobile Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.customername }}</td>
+                    <td><a href="{% url 'mobilefilter' customer.mobileno %}">{{ customer.mobileno }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Your Billing App. All rights reserved.</p>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing App</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: orange;
+            padding: 10px 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        /* Links and buttons */
+        .links {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .links button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .links button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Form container styling */
+        .form-container {
+            background-color: #222;
+            border: 2px solid orange;
+            padding: 10px;
+            width: 60%;
+            max-width: 900px; /* Limit max width */
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Centering form elements */
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form p {
+            text-align: left;  /* Align text for form labels */
+            margin-bottom: 2px;
+            width: 90%;
+        }
+
+        form input, form button {
+            width: 70%; /* Adjust width to ensure content fits */
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid orange;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        form input {
+            background-color: #333;
+            color: white;
+        }
+
+        form button {
+            background-color: orange;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Home button (top left) */
+        .home-button {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Logout button (top right) */
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            position: relative; /* Let footer follow content */
+        }
+
+        footer a {
+            color: orange;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #ff6a00;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Home Button (Top Left) -->
+    <a href="{% url 'home' %}" class="home-button">Home</a>
+
+    <!-- Logout Button (Top Right) -->
+    <a href="#" class="logout-button">Logout</a>
+
+    <h1>Add Purchase</h1>
+
+    <h2>Add New Purchase</h2>
+
+    <!-- Form in a box -->
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 Your Billing App. All rights reserved.</p>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </footer>
+    
+</body>
+</html>

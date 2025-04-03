@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Invoice Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Invoice Details of {{ invoices.mobile }}</h1>
+
+    <a href="{% url 'invoice' %}">
+        <button>Back</button>
+    </a>
+
+    <br><br>
+    
+
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice Date</th>
+                <th>Invoice ID</th>
+                <th>Mobile Number</th>
+                <th>Total (RS)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.invoicedate }}</td>
+                    <td><a href="{% url 'print' %}">{{ invoice.invoiceid }}</a></td>
+		    <td><a href="{% url 'invoice' %}">{{ invoice.mobile }}</a></td>
+                    <td>RS.{{ invoice.total }}/-</td>
+		</tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

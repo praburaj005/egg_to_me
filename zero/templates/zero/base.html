@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Billing App{% endblock %}</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: orange;
+            padding: 30px 0;
+            font-size: 2.5em;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: white;
+        }
+
+        /* Styling for the home button (top left) */
+        .home-button {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Styling for the logout button (top right) */
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #ff6a00;
+        }
+
+        /* Form container styling */
+        .form-container {
+            background-color: #222;
+            border: 2px solid orange;
+            padding: 20px;
+            width: 60%;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        form button {
+            background-color: orange;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        form button:hover {
+            background-color: #ff6a00;
+        }
+
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: orange;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #ff6a00;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Home Button -->
+    <a href="{% url 'home' %}" class="home-button">Home</a>
+
+    <!-- Logout Button -->
+    <a href="#" class="logout-button">Logout</a>
+
+    {% block content %}
+    <!-- Content specific to each page will go here -->
+    {% endblock %}
+
+    <footer>
+        <p>© 2025 Your Billing App. All rights reserved.</p>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </footer>
+
+</body>
+</html>
